@@ -5,40 +5,6 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyModel {
-  final String email;
-  final String password;
-  final int age;
-
-  MyModel({
-    required this.email,
-    required this.password,
-    required this.age,
-  });
-
-  ModelConnector<String> get emailConnector => ModelConnector<String>.from(
-        get: () => email,
-        set: (value) => copyWith(email: value),
-      );
-
-  MyModel copyWith({
-    String? email,
-    String? password,
-    int? age,
-  }) {
-    return MyModel(
-      email: email ?? this.email,
-      password: password ?? this.password,
-      age: age ?? this.age,
-    );
-  }
-
-  @override
-  String toString() {
-    return 'MyModel(email: $email, password: $password, age: $age)';
-  }
-}
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -63,69 +29,83 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  MyModel model = MyModel(email: '', password: '', age: 0);
+  String email = '';
+  String password = '';
+  int age = 0;
 
   @override
   Widget build(BuildContext context) {
-    print('Model: $model');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Moform Example'),
       ),
-      body: Moform(
-        model: model,
-        child: Column(
-          children: [
-            StringField(
-              value: model.email,
-              onChanged: (value) {
-                setState(() {
-                  model = model.copyWith(email: value);
-                });
-              },
-            ),
-            StringField(
-              value: model.password,
-              onChanged: (value) {
-                setState(() {
-                  model = model.copyWith(password: value);
-                });
-              },
-            ),
-            StringField(
-              value: model.email,
-              onChanged: (value) {
-                setState(() {
-                  model = model.copyWith(email: value);
-                });
-              },
-            ),
-            StringField(
-              value: model.email,
-              onChanged: (value) {
-                setState(() {
-                  model = model.copyWith(email: value);
-                });
-              },
-              builder: (context, controller) {
-                return TextField(
-                  controller: controller,
-                  decoration: const InputDecoration(
-                    labelText: 'Custom Field',
-                  ),
-                );
-              },
-            ),
-            IntField(
-              value: model.age,
-              onChanged: (value) {
-                setState(() {
-                  model = model.copyWith(age: value);
-                });
-              },
-            ),
-          ],
-        ),
+      body: Column(
+        children: [
+          StringField(
+            value: email,
+            onChanged: (value) {
+              setState(() {
+                email = value;
+              });
+            },
+          ),
+          StringField(
+            value: password,
+            onChanged: (value) {
+              setState(() {
+                password = value;
+              });
+            },
+          ),
+          StringField(
+            value: email,
+            onChanged: (value) {
+              setState(() {
+                email = value;
+              });
+            },
+          ),
+          StringField(
+            value: email,
+            onChanged: (value) {
+              setState(() {
+                email = value;
+              });
+            },
+            builder: (context, controller) {
+              return TextField(
+                controller: controller,
+                decoration: const InputDecoration(
+                  labelText: 'Custom Field',
+                ),
+              );
+            },
+          ),
+          IntField(
+            value: age,
+            onChanged: (value) {
+              setState(() {
+                age = value;
+              });
+            },
+          ),
+          IntField(
+            value: age,
+            onChanged: (value) {
+              setState(() {
+                age = value;
+              });
+            },
+            builder: (context, controller) {
+              return TextField(
+                controller: controller,
+                decoration: const InputDecoration(
+                  labelText: 'Custom Field',
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

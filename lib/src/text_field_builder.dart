@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-typedef ModelFieldBuilder = Widget Function(
+typedef TextFieldBuilder = Widget Function(
   BuildContext context,
   TextEditingController controller,
 );

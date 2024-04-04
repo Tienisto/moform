@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:moform/src/model/model_connector.dart';
-import 'package:moform/src/model_field_builder.dart';
+import 'package:moform/src/text_field_builder.dart';
 
 class StringField extends StatefulWidget {
-  final ModelConnector<String> connector;
-  final ModelFieldBuilder? builder;
+  final String value;
+  final void Function(String) onChanged;
+  final void Function(String)? onSubmitted;
+  final TextStyle? style;
+  final TextFieldBuilder? builder;
+  final bool? enabled;
+  final bool readOnly;
 
-  StringField({
-    required String value,
-    required void Function(String) onChanged,
-    this.builder,
+  const StringField({
     super.key,
-  }) : connector = ModelConnector<String>.from(
-          get: () => value,
-          set: onChanged,
-        );
-
-  const StringField.withConnector({
-    required this.connector,
+    required this.value,
+    required this.onChanged,
+    this.onSubmitted,
+    this.style,
     this.builder,
-    super.key,
+    this.enabled,
+    this.readOnly = false,
   });
 
   @override
@@ -32,18 +31,18 @@ class _StringFieldState extends State<StringField> {
   @override
   void initState() {
     super.initState();
-    _controller.text = widget.connector.value;
+    _controller.text = widget.value;
     _controller.addListener(() {
-      widget.connector.value = _controller.text;
+      widget.onChanged(_controller.text);
     });
   }
 
   @override
   void didUpdateWidget(StringField oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.connector.value != _controller.text) {
+    if (widget.value != _controller.text) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _controller.text = widget.connector.value;
+        _controller.text = widget.value;
       });
     }
   }
@@ -57,10 +56,17 @@ class _StringFieldState extends State<StringField> {
   @override
   Widget build(BuildContext context) {
     return switch (widget.builder) {
-      ModelFieldBuilder builder => builder(context, _controller),
+      TextFieldBuilder builder => builder(context, _controller),
       null => TextField(
-        controller: _controller,
-      ),
+          controller: _controller,
+          style: widget.style,
+          enabled: widget.enabled,
+          readOnly: widget.readOnly,
+          textInputAction: widget.onSubmitted == null
+              ? TextInputAction.done
+              : TextInputAction.next,
+          onSubmitted: widget.onSubmitted,
+        ),
     };
   }
 }
