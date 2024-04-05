@@ -1,3 +1,7 @@
+## 0.1.2
+
+- feat: add `InputDecoration` and aliases to constructors
+
 ## 0.1.1
 
 - docs: update README.md
