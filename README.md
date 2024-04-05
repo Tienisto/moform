@@ -18,12 +18,24 @@ dependencies:
 Using a `StatefulWidget`:
 
 ```dart
-StringField(
-  value: email,
-  onChanged: (value) {
-    setState(() => email = value);
-  },
-);
+class EmailField extends StatefulWidget {
+  @override
+  State<EmailField> createState() => _EmailFieldState();
+}
+
+class _EmailFieldState extends State<EmailField> {
+  String _email = '';
+
+  @override
+  Widget build(BuildContext context) {
+    return StringField(
+      value: _email,
+      onChanged: (value) {
+        setState(() => _email = value);
+      },
+    );
+  }
+}
 ```
 
 Using [Riverpod](https://pub.dev/packages/riverpod):
@@ -31,12 +43,19 @@ Using [Riverpod](https://pub.dev/packages/riverpod):
 ```dart
 final emailProvider = StateProvider<String>((ref) => '');
 
-StringField(
-  value: ref.watch(emailProvider).state,
-  onChanged: (value) {
-    ref.read(emailProvider).state = value;
-  },
-);
+class EmailField extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final email = ref.watch(emailProvider);
+
+    return StringField(
+      value: email,
+      onChanged: (value) {
+        ref.read(emailProvider.notifier).state = value;
+      },
+    );
+  }
+}
 ```
 
 ## Features
@@ -67,7 +86,7 @@ IntField(
 
 ### ➤ Custom Styles
 
-Use `builder` to customize provide a custom field widget.
+Use `builder` to provide a custom field widget.
 
 ```dart
 StringField(
