@@ -5,7 +5,7 @@ import 'package:moform/src/text_field_builder.dart';
 class IntField extends StatefulWidget {
   final int? value;
   final void Function(int) onChanged;
-  final void Function(String)? onSubmitted;
+  final void Function(int)? onSubmitted;
   final TextStyle? style;
   final TextFieldBuilder? builder;
   final bool? enabled;
@@ -76,7 +76,12 @@ class _IntFieldState extends State<IntField> {
           textInputAction: widget.onSubmitted == null
               ? TextInputAction.done
               : TextInputAction.next,
-          onSubmitted: widget.onSubmitted,
+          onSubmitted: widget.onSubmitted == null ? null : (s) {
+            final parsed = int.tryParse(s);
+            if (parsed != null) {
+              widget.onSubmitted!(parsed);
+            }
+          },
         ),
     };
   }
