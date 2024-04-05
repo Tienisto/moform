@@ -1,6 +1,6 @@
 name: moform
 description: Reactive, model-driven, and type-safe forms for Flutter. A light wrapper around Flutter's TextFormField.
-version: 0.1.1
+version: 0.1.2
 homepage: https://github.com/Tienisto/moform
 
 environment:
