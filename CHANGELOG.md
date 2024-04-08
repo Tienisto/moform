@@ -1,3 +1,7 @@
+## 0.1.3
+
+- fix: add missing mounted check
+
 ## 0.1.2
 
 - feat: add `InputDecoration` and aliases to constructors

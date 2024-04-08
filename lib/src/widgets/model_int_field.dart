@@ -75,7 +75,9 @@ class _IntFieldState extends State<IntField> {
     super.didUpdateWidget(oldWidget);
     if (_intToString(widget.value) != _controller.text) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _controller.text = widget.value.toString();
+        if (mounted) {
+          _controller.text = _intToString(widget.value);
+        }
       });
     }
   }

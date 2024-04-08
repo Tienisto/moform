@@ -68,7 +68,9 @@ class _StringFieldState extends State<StringField> {
     super.didUpdateWidget(oldWidget);
     if (widget.value != _controller.text) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _controller.text = widget.value;
+        if (mounted) {
+          _controller.text = widget.value;
+        }
       });
     }
   }
