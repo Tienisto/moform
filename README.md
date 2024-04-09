@@ -163,7 +163,7 @@ StringField(
 
 ### ➤ Custom NumberFormat
 
-Available in `IntField`.
+Available in `IntField`, `DoubleField`, and their nullable versions.
 
 ```dart
 IntField(
