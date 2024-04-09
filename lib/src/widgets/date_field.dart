@@ -4,55 +4,52 @@ import 'package:moform/src/text_field_builder.dart';
 import 'package:moform/src/widgets/base_date_time_tield.dart';
 
 /// A reactive text field representing a date value.
-class DateField extends StatelessWidget {
-  final DateTime? value;
-  final DateTime? firstDate;
-  final DateTime? lastDate;
-
-  /// The format used to display the date.
-  final DateFormat? dateFormat;
-
-  final void Function(DateTime) onChanged;
-  final FormFieldValidator<DateTime?>? validator;
-  final InputDecoration? decoration;
-
-  // alias for decoration
-  final String? label;
-  final String? hint;
-  final String? prefixText;
-  final String? suffixText;
-  final Icon? icon;
-  final Icon? prefixIcon;
-  final Icon? suffixIcon;
-
-  final TextStyle? style;
-  final TextFieldBuilder? builder;
-  final bool? enabled;
-
-  const DateField({
-    super.key,
-    required this.value,
-    this.firstDate,
-    this.lastDate,
-    this.dateFormat,
-    required this.onChanged,
-    this.validator,
-    this.decoration,
-    this.label,
-    this.hint,
-    this.prefixText,
-    this.suffixText,
-    this.icon,
-    this.prefixIcon,
-    this.suffixIcon,
-    this.style,
-    this.builder,
-    this.enabled,
+class DateField extends BaseDateTimeField {
+  const DateField._({
+    required super.key,
+    required super.value,
+    required super.firstDate,
+    required super.lastDate,
+    required super.dateFormat,
+    required super.onChanged,
+    required super.validator,
+    required super.decoration,
+    required super.label,
+    required super.hint,
+    required super.prefixText,
+    required super.suffixText,
+    required super.icon,
+    required super.prefixIcon,
+    required super.suffixIcon,
+    required super.style,
+    required super.builder,
+    required super.enabled,
+    required super.includeTime,
+    required super.formatter,
   });
 
-  @override
-  Widget build(BuildContext context) {
-    return BaseDateTimeField(
+  factory DateField({
+    Key? key,
+    required DateTime? value,
+    DateTime? firstDate,
+    DateTime? lastDate,
+    DateFormat? dateFormat,
+    required void Function(DateTime) onChanged,
+    FormFieldValidator<DateTime?>? validator,
+    InputDecoration? decoration,
+    String? label,
+    String? hint,
+    String? prefixText,
+    String? suffixText,
+    Icon? icon,
+    Icon? prefixIcon,
+    Icon? suffixIcon,
+    TextStyle? style,
+    TextFieldBuilder? builder,
+    bool? enabled,
+  }) {
+    return DateField._(
+      key: key,
       value: value,
       firstDate: firstDate,
       lastDate: lastDate,
@@ -77,7 +74,10 @@ class DateField extends StatelessWidget {
 }
 
 String _dateTimeToString(
-    BuildContext context, DateFormat? dateFormat, DateTime? value) {
+  BuildContext context,
+  DateFormat? dateFormat,
+  DateTime? value,
+) {
   if (value == null) {
     return '';
   }

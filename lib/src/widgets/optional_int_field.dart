@@ -2,76 +2,65 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:moform/src/text_field_builder.dart';
 import 'package:moform/src/widgets/base_number_field.dart';
-import 'package:moform/src/widgets/int_field.dart';
-
-typedef OptionalIntFormatter = String Function(int?);
 
 /// A reactive text field representing an integer value.
 /// If the value is blank, it will be treated as null.
-class OptionalIntField extends StatelessWidget {
-  final int? value;
-
-  /// Custom formatter for the integer value.
-  final NumberFormat? numberFormat;
-
-  /// Custom formatter for the integer value.
-  /// Providing this will ignore [numberFormat].
-  final OptionalIntFormatter? formatter;
-
-  /// Custom parser for the integer value.
-  /// Must be provided if [formatter] is provided.
-  /// It should be the inverse of [formatter].
-  final IntParser? parser;
-
-  final void Function(int?) onChanged;
-  final void Function(int?)? onSubmitted;
-  final FormFieldValidator<String>? validator;
-  final InputDecoration? decoration;
-
-  // alias for decoration
-  final String? label;
-  final String? hint;
-  final String? prefixText;
-  final String? suffixText;
-  final Icon? icon;
-  final Icon? prefixIcon;
-  final Icon? suffixIcon;
-  final TextInputType? keyboardType;
-
-  final TextStyle? style;
-  final TextInputAction? textInputAction;
-  final TextFieldBuilder? builder;
-  final bool? enabled;
-  final bool readOnly;
-
-  const OptionalIntField({
-    super.key,
-    required this.value,
-    this.numberFormat,
-    this.formatter,
-    this.parser,
-    required this.onChanged,
-    this.onSubmitted,
-    this.validator,
-    this.decoration,
-    this.label,
-    this.hint,
-    this.prefixText,
-    this.suffixText,
-    this.icon,
-    this.prefixIcon,
-    this.suffixIcon,
-    this.keyboardType,
-    this.style,
-    this.textInputAction,
-    this.builder,
-    this.enabled,
-    this.readOnly = false,
+class OptionalIntField extends BaseNumberField<int?> {
+  const OptionalIntField._({
+    required super.key,
+    required super.value,
+    required super.numberFormat,
+    required super.formatter,
+    required super.parser,
+    required super.onChanged,
+    required super.onSubmitted,
+    required super.validator,
+    required super.decoration,
+    required super.label,
+    required super.hint,
+    required super.prefixText,
+    required super.suffixText,
+    required super.icon,
+    required super.prefixIcon,
+    required super.suffixIcon,
+    required super.keyboardType,
+    required super.style,
+    required super.textInputAction,
+    required super.builder,
+    required super.enabled,
+    required super.readOnly,
+    required super.fallbackFormatter,
+    required super.fallbackParser,
+    required super.caster,
+    required super.nullable,
   });
 
-  @override
-  Widget build(BuildContext context) {
-    return BaseNumberField<int?>(
+  factory OptionalIntField({
+    Key? key,
+    required int? value,
+    NumberFormat? numberFormat,
+    String Function(int?)? formatter,
+    int? Function(String)? parser,
+    required void Function(int?) onChanged,
+    void Function(int?)? onSubmitted,
+    FormFieldValidator<String>? validator,
+    InputDecoration? decoration,
+    String? label,
+    String? hint,
+    String? prefixText,
+    String? suffixText,
+    Icon? icon,
+    Icon? prefixIcon,
+    Icon? suffixIcon,
+    TextInputType? keyboardType,
+    TextStyle? style,
+    TextInputAction? textInputAction,
+    TextFieldBuilder? builder,
+    bool? enabled,
+    bool readOnly = false,
+  }) {
+    return OptionalIntField._(
+      key: key,
       value: value,
       numberFormat: numberFormat,
       formatter: formatter,

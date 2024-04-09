@@ -58,7 +58,7 @@ class BaseNumberField<T> extends StatefulWidget {
   final bool nullable;
 
   const BaseNumberField({
-    super.key,
+    required super.key,
     required this.value,
     required this.numberFormat,
     required this.formatter,
