@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
   String email = '';
   String password = '';
   int age = 0;
+  double height = 0;
   DateTime? date;
   TimeOfDay? time;
 
@@ -88,7 +89,7 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           const SizedBox(height: 16),
-          Text('Numbers', style: Theme.of(context).textTheme.titleLarge),
+          Text('Integers', style: Theme.of(context).textTheme.titleLarge),
           IntField(
             value: age,
             onChanged: (value) {
@@ -131,6 +132,16 @@ class _HomePageState extends State<HomePage> {
             onChanged: (value) {
               setState(() {
                 age = value;
+              });
+            },
+          ),
+          const SizedBox(height: 16),
+          Text('Doubles', style: Theme.of(context).textTheme.titleLarge),
+          DoubleField(
+            value: height,
+            onChanged: (value) {
+              setState(() {
+                height = value;
               });
             },
           ),
