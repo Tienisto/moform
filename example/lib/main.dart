@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:moform/moform.dart';
 
 void main() {
@@ -32,6 +33,8 @@ class _HomePageState extends State<HomePage> {
   String email = '';
   String password = '';
   int age = 0;
+  DateTime? date;
+  TimeOfDay? time;
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +42,11 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Moform Example'),
       ),
-      body: Column(
+      body: ListView(
+        padding: const EdgeInsets.all(16),
         children: [
+          const SizedBox(height: 16),
+          Text('Strings', style: Theme.of(context).textTheme.titleLarge),
           StringField(
             value: email,
             onChanged: (value) {
@@ -81,6 +87,8 @@ class _HomePageState extends State<HomePage> {
               );
             },
           ),
+          const SizedBox(height: 16),
+          Text('Numbers', style: Theme.of(context).textTheme.titleLarge),
           IntField(
             value: age,
             onChanged: (value) {
@@ -103,6 +111,56 @@ class _HomePageState extends State<HomePage> {
                   labelText: 'Custom Field',
                 ),
               );
+            },
+          ),
+          IntField(
+            label: 'Custom NumberFormat',
+            value: age,
+            numberFormat: NumberFormat.decimalPattern(),
+            onChanged: (value) {
+              setState(() {
+                age = value;
+              });
+            },
+          ),
+          IntField(
+            label: 'Custom Formatter (2x)',
+            value: age,
+            formatter: (i) => (i * 2).toString(),
+            parser: (s) => int.parse(s) ~/ 2,
+            onChanged: (value) {
+              setState(() {
+                age = value;
+              });
+            },
+          ),
+          const SizedBox(height: 16),
+          Text('Date and Time', style: Theme.of(context).textTheme.titleLarge),
+          DateField(
+            label: 'Date',
+            value: date,
+            onChanged: (value) {
+              setState(() {
+                date = value;
+              });
+            },
+          ),
+          DateTimeField(
+            label: 'Date Time',
+            value: date,
+            onChanged: (value) {
+              setState(() {
+                date = value;
+              });
+            },
+          ),
+          TimeField(
+            label: 'Time',
+            value: time,
+            onChanged: (value) {
+              setState(() {
+                time = value;
+              });
             },
           ),
         ],

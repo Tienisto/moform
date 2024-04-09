@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:moform/src/text_field_builder.dart';
 import 'package:moform/src/utils/input_decoration_builder.dart';
 
-class IntField extends StatefulWidget {
-  final int? value;
-  final void Function(int) onChanged;
-  final void Function(int)? onSubmitted;
+/// A reactive text field representing a string value.
+class StringField extends StatefulWidget {
+  final String value;
+  final void Function(String) onChanged;
+  final void Function(String)? onSubmitted;
   final FormFieldValidator<String>? validator;
   final InputDecoration? decoration;
 
@@ -26,7 +26,7 @@ class IntField extends StatefulWidget {
   final bool? enabled;
   final bool readOnly;
 
-  const IntField({
+  const StringField({
     super.key,
     required this.value,
     required this.onChanged,
@@ -49,34 +49,28 @@ class IntField extends StatefulWidget {
   });
 
   @override
-  State<IntField> createState() => _IntFieldState();
+  State<StringField> createState() => _StringFieldState();
 }
 
-class _IntFieldState extends State<IntField> {
+class _StringFieldState extends State<StringField> {
   final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _controller.text = _intToString(widget.value);
+    _controller.text = widget.value;
     _controller.addListener(() {
-      final parsed = int.tryParse(_controller.text);
-      if (parsed != null) {
-        widget.onChanged(parsed);
-      } else {
-        // Reset the text to the last valid value.
-        _controller.text = _intToString(widget.value);
-      }
+      widget.onChanged(_controller.text);
     });
   }
 
   @override
-  void didUpdateWidget(IntField oldWidget) {
+  void didUpdateWidget(StringField oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (_intToString(widget.value) != _controller.text) {
+    if (widget.value != _controller.text) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
-          _controller.text = _intToString(widget.value);
+          _controller.text = widget.value;
         }
       });
     }
@@ -95,10 +89,6 @@ class _IntFieldState extends State<IntField> {
       null => TextFormField(
           controller: _controller,
           validator: widget.validator,
-          keyboardType: TextInputType.number,
-          inputFormatters: <TextInputFormatter>[
-            FilteringTextInputFormatter.digitsOnly,
-          ],
           style: widget.style,
           enabled: widget.enabled,
           readOnly: widget.readOnly,
@@ -106,14 +96,7 @@ class _IntFieldState extends State<IntField> {
               (widget.onSubmitted == null
                   ? TextInputAction.done
                   : TextInputAction.next),
-          onFieldSubmitted: widget.onSubmitted == null
-              ? null
-              : (s) {
-                  final parsed = int.tryParse(s);
-                  if (parsed != null) {
-                    widget.onSubmitted!(parsed);
-                  }
-                },
+          onFieldSubmitted: widget.onSubmitted,
           decoration: buildInputDecoration(
             decoration: widget.decoration,
             label: widget.label,
@@ -128,8 +111,4 @@ class _IntFieldState extends State<IntField> {
         ),
     };
   }
-}
-
-String _intToString(int? value) {
-  return value?.toString() ?? '';
 }

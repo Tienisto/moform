@@ -1,6 +1,6 @@
 # Moform
 
-Reactive, model-driven, and type-safe forms for Flutter.
+Reactive, model-driven, and type-safe forms for Flutter without the overhead of managing a TextEditingController.
 
 ## Getting Started
 
@@ -14,6 +14,8 @@ dependencies:
 ```
 
 ### ➤ Usage
+
+In this example, we are using a `StringField` to manage the value of an email field.
 
 Using a `StatefulWidget`:
 
@@ -80,6 +82,39 @@ IntField(
   value: age,
   onChanged: (value) {
     setState(() => age = value);
+  },
+);
+```
+
+**DateTime**
+
+```dart
+DateTimeField(
+  value: date,
+  onChanged: (value) {
+    setState(() => date = value);
+  },
+);
+```
+
+**DateTime (Date only)**
+
+```dart
+DateField(
+  value: date,
+  onChanged: (value) {
+    setState(() => date = value);
+  },
+);
+```
+
+**TimeOfDay**
+
+```dart
+TimeField(
+  value: time,
+  onChanged: (value) {
+    setState(() => time = value);
   },
 );
 ```
