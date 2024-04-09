@@ -121,7 +121,9 @@ TimeField(
 
 ### ➤ Custom Styles
 
-Use `builder` to provide a custom field widget.
+Provide a custom widget with the `builder` parameter.
+
+Be aware that parameters like `label` are ignored when using a custom widget.
 
 ```dart
 StringField(
@@ -138,6 +140,20 @@ StringField(
         labelText: 'Custom Field',
       ),
     );
+  },
+);
+```
+
+### ➤ Custom NumberFormat
+
+Available in `IntField`.
+
+```dart
+IntField(
+  value: age,
+  numberFormat: NumberFormat.decimalPattern(),
+  onChanged: (value) {
+    setState(() => age = value);
   },
 );
 ```
