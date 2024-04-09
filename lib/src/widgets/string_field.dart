@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moform/src/text_field_builder.dart';
 import 'package:moform/src/utils/input_decoration_builder.dart';
+import 'package:moform/src/utils/text_editing_controller_ext.dart';
 
 /// A reactive text field representing a string value.
 class StringField extends StatefulWidget {
@@ -70,7 +71,7 @@ class _StringFieldState extends State<StringField> {
     if (widget.value != _controller.text) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
-          _controller.text = widget.value;
+          _controller.setTextAndFixCursor(widget.value);
         }
       });
     }
