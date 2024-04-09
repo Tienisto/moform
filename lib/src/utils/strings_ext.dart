@@ -1,13 +1,8 @@
 extension StringExt on String {
   String? digestNullable() {
-    final s = trim();
-    if (s.isEmpty) {
+    if (trim().isEmpty) {
       return null;
     }
-    return s;
-  }
-
-  String digestNonNullable() {
-    return trim();
+    return this;
   }
 }

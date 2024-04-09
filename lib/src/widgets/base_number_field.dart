@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:moform/src/text_field_builder.dart';
 import 'package:moform/src/utils/input_decoration_builder.dart';
 import 'package:moform/src/utils/number_format_ext.dart';
+import 'package:moform/src/utils/text_editing_controller_ext.dart';
 
 @internal
 typedef NumberFormatter<T> = String Function(T);
@@ -131,7 +132,10 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> {
         }
 
         // Reset the text to the last valid value.
-        _setText(_numberToString<T>(
+        if (!mounted) {
+          return;
+        }
+        _controller.setTextAndFixCursor(_numberToString<T>(
           widget.numberFormat,
           widget.formatter,
           widget.fallbackFormatter,
@@ -155,7 +159,10 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> {
     );
     if (newValue != _controller.text) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _setText(newValue);
+        if (!mounted) {
+          return;
+        }
+        _controller.setTextAndFixCursor(newValue);
       });
     }
   }
@@ -164,15 +171,6 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> {
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  void _setText(String text) {
-    if (!mounted) {
-      return;
-    }
-    _controller.text = text;
-    _controller.selection =
-        TextSelection.collapsed(offset: _controller.text.length);
   }
 
   @override

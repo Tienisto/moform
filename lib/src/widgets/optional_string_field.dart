@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moform/src/text_field_builder.dart';
 import 'package:moform/src/utils/input_decoration_builder.dart';
 import 'package:moform/src/utils/strings_ext.dart';
+import 'package:moform/src/utils/text_editing_controller_ext.dart';
 
 /// A reactive text field representing a string value.
 /// If the value is blank, it will be treated as null.
@@ -72,7 +73,7 @@ class _OptionalStringFieldState extends State<OptionalStringField> {
     if (widget.value != _controller.text) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
-          _controller.text = widget.value ?? '';
+          _controller.setTextAndFixCursor(widget.value ?? '');
         }
       });
     }
