@@ -1,6 +1,7 @@
 ## 0.1.3
 
-- feat: add `DateField`, `TimeField`, `DateTimeField`
+- feat: add `DoubleField` `DateField`, `TimeField`, `DateTimeField`
+- feat: add optional versions: `OptionalStringField`, `OptionalIntField`, `OptionalDoubleField`
 - fix: add missing mounted check
 
 ## 0.1.2
