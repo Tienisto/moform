@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:moform/src/text_field_builder.dart';
 import 'package:moform/src/widgets/base_number_field.dart';
+import 'package:moform/src/widgets/double_field.dart';
 
-typedef DoubleFormatter = String Function(double);
-typedef DoubleParser = double? Function(String);
+typedef OptionalDoubleFormatter = String Function(double?);
 
 /// A reactive text field representing an double value.
-class DoubleField extends StatelessWidget {
+/// If the value is blank, it will be treated as null.
+class OptionalDoubleField extends StatelessWidget {
   final double? value;
 
   /// Custom formatter for the double value.
@@ -15,15 +16,15 @@ class DoubleField extends StatelessWidget {
 
   /// Custom formatter for the double value.
   /// Providing this will ignore [numberFormat].
-  final DoubleFormatter? formatter;
+  final OptionalDoubleFormatter? formatter;
 
   /// Custom parser for the double value.
   /// Must be provided if [formatter] is provided.
   /// It should be the inverse of [formatter].
   final DoubleParser? parser;
 
-  final void Function(double) onChanged;
-  final void Function(double)? onSubmitted;
+  final void Function(double?) onChanged;
+  final void Function(double?)? onSubmitted;
   final FormFieldValidator<String>? validator;
   final InputDecoration? decoration;
 
@@ -43,7 +44,7 @@ class DoubleField extends StatelessWidget {
   final bool? enabled;
   final bool readOnly;
 
-  const DoubleField({
+  const OptionalDoubleField({
     super.key,
     required this.value,
     this.numberFormat,
@@ -70,7 +71,7 @@ class DoubleField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseNumberField<double>(
+    return BaseNumberField<double?>(
       value: value,
       numberFormat: numberFormat,
       formatter: formatter,
@@ -92,10 +93,10 @@ class DoubleField extends StatelessWidget {
       builder: builder,
       enabled: enabled,
       readOnly: readOnly,
-      fallbackFormatter: (double d) => d.toString(),
+      fallbackFormatter: (double? d) => d?.toString() ?? '',
       fallbackParser: (String s) => double.tryParse(s.replaceAll(',', '.')),
       caster: (num? n) => n?.toDouble(),
-      nullable: false,
+      nullable: true,
     );
   }
 }

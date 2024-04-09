@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:moform/src/text_field_builder.dart';
 import 'package:moform/src/utils/input_decoration_builder.dart';
+import 'package:moform/src/utils/number_format_ext.dart';
 
 @internal
 typedef NumberFormatter<T> = String Function(T);
@@ -54,6 +55,7 @@ class BaseNumberField<T> extends StatefulWidget {
   final NumberFormatter<T> fallbackFormatter;
   final NumberParser<T> fallbackParser;
   final T? Function(num?) caster;
+  final bool nullable;
 
   const BaseNumberField({
     super.key,
@@ -81,6 +83,7 @@ class BaseNumberField<T> extends StatefulWidget {
     required this.fallbackFormatter,
     required this.fallbackParser,
     required this.caster,
+    required this.nullable,
   }) : assert(
             (formatter == null && parser == null) ||
                 (formatter != null && parser != null),
@@ -110,24 +113,34 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> {
       }
       _lastInput = newInput;
       final T? parsed = widget.parser?.call(newInput) ??
-          widget.caster(widget.numberFormat?.parse(newInput)) ??
+          widget.caster(widget.numberFormat?.parseOrNull(newInput)) ??
           widget.fallbackParser(newInput);
-      if (parsed != null && parsed != widget.value) {
-        widget.onChanged(parsed);
-      } else {
+      if (parsed == widget.value) {
+        return;
+      }
+
+      if (parsed == null) {
+        if (widget.nullable && newInput.isEmpty) {
+          widget.onChanged(null as T);
+          return;
+        }
+
         if (T == double && (newInput.endsWith(',') || newInput.endsWith('.'))) {
           // do nothing, wait for the user to finish typing
           return;
         }
 
         // Reset the text to the last valid value.
-        _controller.text = _numberToString<T>(
+        _setText(_numberToString<T>(
           widget.numberFormat,
           widget.formatter,
           widget.fallbackFormatter,
           widget.value,
-        );
+        ));
+        return;
       }
+
+      widget.onChanged(parsed);
     });
   }
 
@@ -142,11 +155,7 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> {
     );
     if (newValue != _controller.text) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) {
-          _controller.text = newValue;
-          _controller.selection =
-              TextSelection.collapsed(offset: _controller.text.length);
-        }
+        _setText(newValue);
       });
     }
   }
@@ -155,6 +164,15 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void _setText(String text) {
+    if (!mounted) {
+      return;
+    }
+    _controller.text = text;
+    _controller.selection =
+        TextSelection.collapsed(offset: _controller.text.length);
   }
 
   @override

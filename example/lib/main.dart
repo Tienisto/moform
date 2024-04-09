@@ -32,8 +32,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String email = '';
   String password = '';
+  String? optionalEmail;
   int age = 0;
+  int? optionalAge;
   double height = 0;
+  double? weight = 0;
   DateTime? date;
   TimeOfDay? time;
 
@@ -88,6 +91,15 @@ class _HomePageState extends State<HomePage> {
               );
             },
           ),
+          OptionalStringField(
+            value: optionalEmail,
+            onChanged: (value) {
+              setState(() {
+                optionalEmail = value;
+              });
+            },
+          ),
+          Text('Optional Email: $optionalEmail'),
           const SizedBox(height: 16),
           Text('Integers', style: Theme.of(context).textTheme.titleLarge),
           IntField(
@@ -135,6 +147,16 @@ class _HomePageState extends State<HomePage> {
               });
             },
           ),
+          OptionalIntField(
+            label: 'Optional Age',
+            value: optionalAge,
+            onChanged: (value) {
+              setState(() {
+                optionalAge = value;
+              });
+            },
+          ),
+          Text('Optional Age: $optionalAge'),
           const SizedBox(height: 16),
           Text('Doubles', style: Theme.of(context).textTheme.titleLarge),
           DoubleField(
@@ -145,6 +167,25 @@ class _HomePageState extends State<HomePage> {
               });
             },
           ),
+          DoubleField(
+            label: 'Custom NumberFormat',
+            value: height,
+            numberFormat: NumberFormat.decimalPattern(),
+            onChanged: (value) {
+              setState(() {
+                height = value;
+              });
+            },
+          ),
+          OptionalDoubleField(
+            value: weight,
+            onChanged: (value) {
+              setState(() {
+                weight = value;
+              });
+            },
+          ),
+          Text('Weight: $weight'),
           const SizedBox(height: 16),
           Text('Date and Time', style: Theme.of(context).textTheme.titleLarge),
           DateField(

@@ -95,6 +95,7 @@ class IntField extends StatelessWidget {
       fallbackFormatter: (int i) => i.toString(),
       fallbackParser: (String s) => int.tryParse(s),
       caster: (num? n) => n?.toInt(),
+      nullable: false,
     );
   }
 }

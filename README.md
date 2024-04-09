@@ -86,6 +86,17 @@ IntField(
 );
 ```
 
+**Double**
+
+```dart
+DoubleField(
+  value: weight,
+  onChanged: (value) {
+    setState(() => weight = value);
+  },
+);
+```
+
 **DateTime**
 
 ```dart
@@ -118,6 +129,12 @@ TimeField(
   },
 );
 ```
+
+### ➤ Nullable Fields
+
+There are nullable versions of the fields above:
+
+`OptionalStringField`, `OptionalIntField`, `OptionalDoubleField`.
 
 ### ➤ Custom Styles
 
