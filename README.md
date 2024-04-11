@@ -136,6 +136,17 @@ There are nullable versions of the fields above:
 
 `OptionalStringField`, `OptionalIntField`, `OptionalDoubleField`.
 
+These fields have `onChanged` callbacks that receive `String?`, `int?`, and `double?` respectively.
+
+```dart
+OptionalStringField(
+  value: email,
+  onChanged: (String? value) { // <-- null, when the field is empty
+    setState(() => email = value);
+  },
+);
+```
+
 ### ➤ Custom Styles
 
 Provide a custom widget with the `builder` parameter.
