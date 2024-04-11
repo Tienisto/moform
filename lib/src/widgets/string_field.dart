@@ -61,7 +61,9 @@ class _StringFieldState extends State<StringField> {
     super.initState();
     _controller.text = widget.value;
     _controller.addListener(() {
-      widget.onChanged(_controller.text);
+      if (_controller.text != widget.value) {
+        widget.onChanged(_controller.text);
+      }
     });
   }
 
