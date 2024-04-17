@@ -8,6 +8,7 @@ class DateField extends BaseDateTimeField {
   const DateField._({
     required super.key,
     required super.value,
+    required super.suggestedDate,
     required super.firstDate,
     required super.lastDate,
     required super.dateFormat,
@@ -32,6 +33,7 @@ class DateField extends BaseDateTimeField {
   factory DateField({
     Key? key,
     required DateTime? value,
+    DateTime? suggestedDate,
     DateTime? firstDate,
     DateTime? lastDate,
     DateFormat? dateFormat,
@@ -47,12 +49,13 @@ class DateField extends BaseDateTimeField {
     Icon? suffixIcon,
     void Function()? onDeleted,
     TextStyle? style,
-    TextFieldBuilder? builder,
+    TextFieldWithOnTapBuilder? builder,
     bool? enabled,
   }) {
     return DateField._(
       key: key,
       value: value,
+      suggestedDate: suggestedDate,
       firstDate: firstDate,
       lastDate: lastDate,
       dateFormat: dateFormat,

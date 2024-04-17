@@ -13,6 +13,10 @@ typedef DateTimeFormatter = String Function(
 class TimeField extends StatefulWidget {
   final TimeOfDay? value;
 
+  /// The initial time that the time picker should display
+  /// when [value] is null.
+  final TimeOfDay? suggestedTime;
+
   /// The format used to display the date and time.
   final DateFormat? dateFormat;
 
@@ -31,12 +35,13 @@ class TimeField extends StatefulWidget {
   final void Function()? onDeleted;
 
   final TextStyle? style;
-  final TextFieldBuilder? builder;
+  final TextFieldWithOnTapBuilder? builder;
   final bool? enabled;
 
   const TimeField({
     super.key,
     required this.value,
+    this.suggestedTime,
     this.dateFormat,
     required this.onChanged,
     this.validator,
@@ -94,24 +99,30 @@ class _TimeFieldState extends State<TimeField> {
     super.dispose();
   }
 
+  void _onTap() async {
+    final time = await showTimePicker(
+      context: context,
+      initialTime: widget.value ?? widget.suggestedTime ?? TimeOfDay.now(),
+    );
+
+    if (time == null || !context.mounted) {
+      return;
+    }
+
+    widget.onChanged(time);
+  }
+
   @override
   Widget build(BuildContext context) {
     return switch (widget.builder) {
-      TextFieldBuilder builder => builder(context, _controller),
+      TextFieldWithOnTapBuilder builder => builder(
+          context,
+          _controller,
+          _onTap,
+        ),
       null => TextFormField(
           controller: _controller,
-          onTap: () async {
-            final time = await showTimePicker(
-              context: context,
-              initialTime: widget.value ?? TimeOfDay.now(),
-            );
-
-            if (time == null || !context.mounted) {
-              return;
-            }
-
-            widget.onChanged(time);
-          },
+          onTap: _onTap,
           validator: widget.validator == null
               ? null
               : (_) {

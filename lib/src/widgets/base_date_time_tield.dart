@@ -13,6 +13,12 @@ typedef DateTimeFormatter = String Function(
 @internal
 class BaseDateTimeField extends StatefulWidget {
   final DateTime? value;
+
+  /// The initial date that the calendar picker should display
+  /// when [value] is null.
+  /// If null, defaults to the current date and time.
+  final DateTime? suggestedDate;
+
   final DateTime? firstDate;
   final DateTime? lastDate;
 
@@ -34,7 +40,7 @@ class BaseDateTimeField extends StatefulWidget {
   final Icon? suffixIcon;
 
   final TextStyle? style;
-  final TextFieldBuilder? builder;
+  final TextFieldWithOnTapBuilder? builder;
   final bool? enabled;
 
   final bool includeTime;
@@ -43,6 +49,7 @@ class BaseDateTimeField extends StatefulWidget {
   const BaseDateTimeField({
     required super.key,
     required this.value,
+    required this.suggestedDate,
     required this.firstDate,
     required this.lastDate,
     required this.dateFormat,
@@ -103,45 +110,53 @@ class _BaseDateTimeFieldState extends State<BaseDateTimeField> {
     super.dispose();
   }
 
+  void _onTap() async {
+    final context = this.context;
+    final date = await showDatePicker(
+      context: context,
+      initialDate: widget.value ?? widget.suggestedDate ?? DateTime.now(),
+      firstDate: widget.firstDate ?? DateTime(1900),
+      lastDate: widget.lastDate ?? DateTime(2100),
+    );
+
+    if (date == null || !context.mounted) {
+      return;
+    }
+
+    TimeOfDay? time;
+    if (widget.includeTime) {
+      time = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.fromDateTime(
+          widget.value ?? widget.suggestedDate ?? DateTime.now(),
+        ),
+      );
+
+      if (time == null || !context.mounted) {
+        return;
+      }
+    }
+
+    widget.onChanged(DateTime(
+      date.year,
+      date.month,
+      date.day,
+      time?.hour ?? 0,
+      time?.minute ?? 0,
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return switch (widget.builder) {
-      TextFieldBuilder builder => builder(context, _controller),
+      TextFieldWithOnTapBuilder builder => builder(
+          context,
+          _controller,
+          _onTap,
+        ),
       null => TextFormField(
           controller: _controller,
-          onTap: () async {
-            final date = await showDatePicker(
-              context: context,
-              initialDate: widget.value ?? DateTime.now(),
-              firstDate: widget.firstDate ?? DateTime(1900),
-              lastDate: widget.lastDate ?? DateTime(2100),
-            );
-
-            if (date == null || !context.mounted) {
-              return;
-            }
-
-            TimeOfDay? time;
-            if (widget.includeTime) {
-              time = await showTimePicker(
-                context: context,
-                initialTime:
-                    TimeOfDay.fromDateTime(widget.value ?? DateTime.now()),
-              );
-
-              if (time == null || !context.mounted) {
-                return;
-              }
-            }
-
-            widget.onChanged(DateTime(
-              date.year,
-              date.month,
-              date.day,
-              time?.hour ?? 0,
-              time?.minute ?? 0,
-            ));
-          },
+          onTap: _onTap,
           validator: widget.validator == null
               ? null
               : (_) {
@@ -150,7 +165,6 @@ class _BaseDateTimeFieldState extends State<BaseDateTimeField> {
           style: widget.style,
           enabled: widget.enabled,
           readOnly: true,
-          // ignore: invalid_use_of_internal_member
           decoration: buildInputDecoration(
             context: context,
             decoration: widget.decoration,

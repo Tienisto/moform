@@ -1,5 +1,7 @@
 import 'package:intl/intl.dart';
+import 'package:meta/meta.dart';
 
+@internal
 extension NumberFormatExt on NumberFormat {
   /// Parses the given [number] string to a number.
   /// Returns null if the number is invalid.
