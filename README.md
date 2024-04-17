@@ -10,6 +10,8 @@ Add the following to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
+  flutter_localizations:
+    sdk: flutter
   moform: <version>
 ```
 
@@ -147,7 +149,7 @@ OptionalStringField(
 );
 ```
 
-To clear a `DateTimeField`, `DateField`, or `TimeField`, add the `onDeleted` callback:
+To clear a `DateTimeField`, `DateField`, or `TimeField`, add the `onCleared` callback:
 
 ```dart
 DateTimeField(
@@ -155,7 +157,7 @@ DateTimeField(
   onChanged: (value) {
     setState(() => date = value);
   },
-  onDeleted: () {
+  onCleared: () {
     setState(() => date = null);
   },
 );
@@ -199,3 +201,61 @@ IntField(
   },
 );
 ```
+
+For more complex scenarios, you can provide a `customNumberFormat`.
+Be aware, that the `parser` should be the exact inverse of the `formatter`.
+
+```dart
+IntField(
+  value: age,
+  customNumberFormat: CustomNumberFormat(
+    formatter: (i) => i.toString(),
+    parser: (s) => int.tryParse(s),
+  ),
+  onChanged: (value) {
+    setState(() => age = value);
+  },
+);
+```
+
+### ➤ Clear Button
+
+There is a convenience `onCleared` callback to clear the field.
+If this callback is provided, a clear button will be displayed.
+This parameter is ignored when `decoration` or `builder` is provided.
+
+```dart
+StringField(
+  value: email,
+  onChanged: (value) {
+    setState(() => email = value);
+  },
+  onCleared: () {
+    setState(() => email = '');
+  },
+);
+```
+
+## License
+
+MIT License
+
+Copyright (c) 2024 Tien Do Nam
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
