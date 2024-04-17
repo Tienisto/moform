@@ -26,7 +26,7 @@ class BaseDateTimeField extends StatefulWidget {
   final DateFormat? dateFormat;
 
   final void Function(DateTime) onChanged;
-  final void Function()? onDeleted;
+  final void Function()? onCleared;
   final FormFieldValidator<DateTime?>? validator;
   final InputDecoration? decoration;
 
@@ -54,7 +54,7 @@ class BaseDateTimeField extends StatefulWidget {
     required this.lastDate,
     required this.dateFormat,
     required this.onChanged,
-    required this.onDeleted,
+    required this.onCleared,
     required this.validator,
     required this.decoration,
     required this.label,
@@ -175,7 +175,7 @@ class _BaseDateTimeFieldState extends State<BaseDateTimeField> {
             icon: widget.icon,
             prefixIcon: widget.prefixIcon,
             suffixIcon: widget.suffixIcon,
-            onDeleted: widget.onDeleted,
+            onCleared: widget.onCleared,
             hasInput: _controller.text.isNotEmpty,
             keyboardType: null,
           ),

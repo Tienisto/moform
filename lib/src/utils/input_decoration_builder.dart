@@ -12,7 +12,7 @@ InputDecoration? buildInputDecoration({
   required Icon? icon,
   required Icon? prefixIcon,
   required Icon? suffixIcon,
-  required void Function()? onDeleted,
+  required void Function()? onCleared,
   required bool hasInput,
   required TextInputType? keyboardType,
 }) {
@@ -26,7 +26,7 @@ InputDecoration? buildInputDecoration({
       icon == null &&
       prefixIcon == null &&
       suffixIcon == null &&
-      onDeleted == null &&
+      onCleared == null &&
       keyboardType == null) {
     return null;
   }
@@ -37,12 +37,12 @@ InputDecoration? buildInputDecoration({
     suffixText: suffixText,
     icon: icon,
     prefixIcon: prefixIcon,
-    suffixIcon: hasInput && onDeleted != null
+    suffixIcon: hasInput && onCleared != null
         ? Tooltip(
             message: MaterialLocalizations.of(context).deleteButtonTooltip,
             child: IconButton(
               icon: suffixIcon ?? const Icon(Icons.clear),
-              onPressed: onDeleted,
+              onPressed: onCleared,
             ),
           )
         : suffixIcon,

@@ -19,7 +19,7 @@ class StringField extends StatefulWidget {
   final Icon? icon;
   final Icon? prefixIcon;
   final Icon? suffixIcon;
-  final void Function()? onDeleted;
+  final void Function()? onCleared;
   final TextInputType? keyboardType;
 
   final TextStyle? style;
@@ -42,7 +42,7 @@ class StringField extends StatefulWidget {
     this.icon,
     this.prefixIcon,
     this.suffixIcon,
-    this.onDeleted,
+    this.onCleared,
     this.keyboardType,
     this.style,
     this.textInputAction,
@@ -112,7 +112,7 @@ class _StringFieldState extends State<StringField> {
             icon: widget.icon,
             prefixIcon: widget.prefixIcon,
             suffixIcon: widget.suffixIcon,
-            onDeleted: widget.onDeleted,
+            onCleared: widget.onCleared,
             hasInput: _controller.text.isNotEmpty,
             keyboardType: widget.keyboardType,
           ),

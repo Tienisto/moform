@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                 email = value;
               });
             },
-            onDeleted: () {
+            onCleared: () {
               setState(() {
                 email = '';
               });
@@ -201,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                 date = value;
               });
             },
-            onDeleted: () {
+            onCleared: () {
               setState(() {
                 date = null;
               });

@@ -1,6 +1,6 @@
 ## 0.2.0
 
-- feat: optional `onDeleted` callback to show a clear button
+- feat: optional `onCleared` callback to show a clear button
 - feat: add `suggestedDate` and `suggestedTime` to `DateField`, `DateTimeField`, and `TimeField`
 - **BREAKING**: add `onTap` parameter to `builder` function for `DateTimeField`, `DateField`, and `TimeField`
 

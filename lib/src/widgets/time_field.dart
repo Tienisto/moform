@@ -32,7 +32,7 @@ class TimeField extends StatefulWidget {
   final Icon? icon;
   final Icon? prefixIcon;
   final Icon? suffixIcon;
-  final void Function()? onDeleted;
+  final void Function()? onCleared;
 
   final TextStyle? style;
   final TextFieldWithOnTapBuilder? builder;
@@ -53,7 +53,7 @@ class TimeField extends StatefulWidget {
     this.icon,
     this.prefixIcon,
     this.suffixIcon,
-    this.onDeleted,
+    this.onCleared,
     this.style,
     this.builder,
     this.enabled,
@@ -142,7 +142,7 @@ class _TimeFieldState extends State<TimeField> {
             icon: widget.icon,
             prefixIcon: widget.prefixIcon,
             suffixIcon: widget.suffixIcon,
-            onDeleted: widget.onDeleted,
+            onCleared: widget.onCleared,
             hasInput: _controller.text.isNotEmpty,
             keyboardType: null,
           ),
