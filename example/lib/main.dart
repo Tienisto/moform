@@ -216,6 +216,25 @@ class _HomePageState extends State<HomePage> {
               });
             },
           ),
+          DateTimeField(
+            label: 'Custom Date Time',
+            value: date,
+            onChanged: (value) {
+              setState(() {
+                date = value;
+              });
+            },
+            builder: (context, controller, onTap) {
+              return TextField(
+                controller: controller,
+                onTap: onTap,
+                readOnly: true,
+                decoration: const InputDecoration(
+                  labelText: 'Custom Field',
+                ),
+              );
+            },
+          ),
           TimeField(
             label: 'Time',
             value: time,
