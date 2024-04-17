@@ -1,4 +1,6 @@
 export 'package:moform/src/text_field_builder.dart';
+export 'package:moform/src/widgets/base_number_field.dart'
+    show CustomNumberFormat;
 export 'package:moform/src/widgets/date_field.dart';
 export 'package:moform/src/widgets/date_time_field.dart';
 export 'package:moform/src/widgets/double_field.dart';

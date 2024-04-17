@@ -151,8 +151,10 @@ class _HomePageState extends State<HomePage> {
           IntField(
             label: 'Custom Formatter (2x)',
             value: age,
-            formatter: (i) => (i * 2).toString(),
-            parser: (s) => int.parse(s) ~/ 2,
+            customNumberFormat: CustomNumberFormat(
+              formatter: (i) => (i * 2).toString(),
+              parser: (s) => int.parse(s) ~/ 2,
+            ),
             onChanged: (value) {
               setState(() {
                 age = value;

@@ -2,6 +2,7 @@
 
 - feat: optional `onCleared` callback to show a clear button
 - feat: add `suggestedDate` and `suggestedTime` to `DateField`, `DateTimeField`, and `TimeField`
+- **BREAKING**: move `parser` and `formatter` to `CustomNumberFormat` class
 - **BREAKING**: add `onTap` parameter to `builder` function for `DateTimeField`, `DateField`, and `TimeField`
 
 ## 0.1.4

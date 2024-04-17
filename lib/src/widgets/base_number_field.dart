@@ -8,6 +8,21 @@ import 'package:moform/src/utils/input_decoration_builder.dart';
 import 'package:moform/src/utils/number_format_ext.dart';
 import 'package:moform/src/utils/text_editing_controller_ext.dart';
 
+class CustomNumberFormat<T> {
+  /// Custom formatter for the integer / double value.
+  final NumberFormatter<T> formatter;
+
+  /// Custom parser for the integer / double value.
+  /// It should be the inverse of [formatter].
+  /// May return null if the input is invalid.
+  final NumberParser<T> parser;
+
+  const CustomNumberFormat({
+    required this.formatter,
+    required this.parser,
+  });
+}
+
 @internal
 typedef NumberFormatter<T> = String Function(T);
 
@@ -38,12 +53,7 @@ class BaseNumberField<T> extends StatefulWidget {
 
   /// Custom formatter for the integer value.
   /// Providing this will ignore [numberFormat].
-  final NumberFormatter<T>? formatter;
-
-  /// Custom parser for the integer value.
-  /// Must be provided if [formatter] is provided.
-  /// It should be the inverse of [formatter].
-  final NumberParser<T>? parser;
+  final CustomNumberFormat<T>? customNumberFormat;
 
   final void Function(T) onChanged;
   final void Function(T)? onSubmitted;
@@ -76,8 +86,7 @@ class BaseNumberField<T> extends StatefulWidget {
     required super.key,
     required this.value,
     required this.numberFormat,
-    required this.formatter,
-    required this.parser,
+    required this.customNumberFormat,
     required this.onChanged,
     required this.onSubmitted,
     required this.validator,
@@ -100,16 +109,14 @@ class BaseNumberField<T> extends StatefulWidget {
     required this.fallbackParser,
     required this.caster,
     required this.nullable,
-  }) : assert(
-            (formatter == null && parser == null) ||
-                (formatter != null && parser != null),
-            'formatter and parser must be provided together');
+  });
 
   @override
   State<BaseNumberField<T>> createState() => _BaseNumberFieldState();
 }
 
-class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> with FirstFrameCallback {
+class _BaseNumberFieldState<T> extends State<BaseNumberField<T>>
+    with FirstFrameCallback {
   final TextEditingController _controller = TextEditingController();
   String? _lastInput;
 
@@ -122,7 +129,7 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> with FirstFrame
         return;
       }
       _lastInput = newInput;
-      final T? parsed = widget.parser?.call(newInput) ??
+      final T? parsed = widget.customNumberFormat?.parser.call(newInput) ??
           widget.caster(widget.numberFormat?.parseOrNull(newInput)) ??
           widget.fallbackParser(context, newInput);
       if (parsed == widget.value) {
@@ -147,7 +154,7 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> with FirstFrame
         _controller.setTextAndFixCursor(_numberToString<T>(
           context,
           widget.numberFormat,
-          widget.formatter,
+          widget.customNumberFormat?.formatter,
           widget.fallbackFormatter,
           widget.value,
         ));
@@ -164,7 +171,7 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> with FirstFrame
     final newValue = _numberToString<T>(
       context,
       widget.numberFormat,
-      widget.formatter,
+      widget.customNumberFormat?.formatter,
       widget.fallbackFormatter,
       widget.value,
     );
@@ -190,7 +197,7 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> with FirstFrame
       _controller.text = _numberToString<T>(
         context,
         widget.numberFormat,
-        widget.formatter,
+        widget.customNumberFormat?.formatter,
         widget.fallbackFormatter,
         widget.value,
       );
@@ -223,7 +230,8 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> with FirstFrame
           onFieldSubmitted: widget.onSubmitted == null
               ? null
               : (s) {
-                  final T? parsed = widget.parser?.call(_controller.text) ??
+                  final T? parsed = widget.customNumberFormat?.parser
+                          .call(_controller.text) ??
                       widget.caster(
                           widget.numberFormat?.parse(_controller.text)) ??
                       widget.fallbackParser(context, _controller.text);
