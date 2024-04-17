@@ -147,6 +147,20 @@ OptionalStringField(
 );
 ```
 
+To clear a `DateTimeField`, `DateField`, or `TimeField`, add the `onDeleted` callback:
+
+```dart
+DateTimeField(
+  value: date,
+  onChanged: (value) {
+    setState(() => date = value);
+  },
+  onDeleted: () {
+    setState(() => date = null);
+  },
+);
+```
+
 ### ➤ Custom Styles
 
 Provide a custom widget with the `builder` parameter.

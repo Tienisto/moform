@@ -21,6 +21,7 @@ class OptionalStringField extends StatefulWidget {
   final Icon? icon;
   final Icon? prefixIcon;
   final Icon? suffixIcon;
+  final void Function()? onDeleted;
   final TextInputType? keyboardType;
 
   final TextStyle? style;
@@ -43,6 +44,7 @@ class OptionalStringField extends StatefulWidget {
     this.icon,
     this.prefixIcon,
     this.suffixIcon,
+    this.onDeleted,
     this.keyboardType,
     this.style,
     this.textInputAction,
@@ -101,6 +103,7 @@ class _OptionalStringFieldState extends State<OptionalStringField> {
                   : TextInputAction.next),
           onFieldSubmitted: widget.onSubmitted,
           decoration: buildInputDecoration(
+            context: context,
             decoration: widget.decoration,
             label: widget.label,
             hint: widget.hint,
@@ -109,6 +112,8 @@ class _OptionalStringFieldState extends State<OptionalStringField> {
             icon: widget.icon,
             prefixIcon: widget.prefixIcon,
             suffixIcon: widget.suffixIcon,
+            onDeleted: widget.onDeleted,
+            hasInput: _controller.text.isNotEmpty,
             keyboardType: widget.keyboardType,
           ),
         ),

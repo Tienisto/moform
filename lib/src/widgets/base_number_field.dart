@@ -45,6 +45,7 @@ class BaseNumberField<T> extends StatefulWidget {
   final Icon? icon;
   final Icon? prefixIcon;
   final Icon? suffixIcon;
+  final void Function()? onDeleted;
   final TextInputType? keyboardType;
 
   final TextStyle? style;
@@ -75,6 +76,7 @@ class BaseNumberField<T> extends StatefulWidget {
     required this.icon,
     required this.prefixIcon,
     required this.suffixIcon,
+    required this.onDeleted,
     required this.keyboardType,
     required this.style,
     required this.textInputAction,
@@ -211,6 +213,7 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> {
                   }
                 },
           decoration: buildInputDecoration(
+            context: context,
             decoration: widget.decoration,
             label: widget.label,
             hint: widget.hint,
@@ -219,6 +222,8 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> {
             icon: widget.icon,
             prefixIcon: widget.prefixIcon,
             suffixIcon: widget.suffixIcon,
+            onDeleted: widget.onDeleted,
+            hasInput: _controller.text.isNotEmpty,
             keyboardType: widget.keyboardType,
           ),
         ),

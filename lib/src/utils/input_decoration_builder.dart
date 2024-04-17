@@ -3,6 +3,7 @@ import 'package:meta/meta.dart';
 
 @internal
 InputDecoration? buildInputDecoration({
+  required BuildContext context,
   required InputDecoration? decoration,
   required String? label,
   required String? hint,
@@ -11,6 +12,8 @@ InputDecoration? buildInputDecoration({
   required Icon? icon,
   required Icon? prefixIcon,
   required Icon? suffixIcon,
+  required void Function()? onDeleted,
+  required bool hasInput,
   required TextInputType? keyboardType,
 }) {
   if (decoration != null) {
@@ -23,6 +26,7 @@ InputDecoration? buildInputDecoration({
       icon == null &&
       prefixIcon == null &&
       suffixIcon == null &&
+      onDeleted == null &&
       keyboardType == null) {
     return null;
   }
@@ -33,6 +37,14 @@ InputDecoration? buildInputDecoration({
     suffixText: suffixText,
     icon: icon,
     prefixIcon: prefixIcon,
-    suffixIcon: suffixIcon,
+    suffixIcon: hasInput && onDeleted != null
+        ? Tooltip(
+            message: MaterialLocalizations.of(context).deleteButtonTooltip,
+            child: IconButton(
+              icon: suffixIcon ?? const Icon(Icons.clear),
+              onPressed: onDeleted,
+            ),
+          )
+        : suffixIcon,
   );
 }

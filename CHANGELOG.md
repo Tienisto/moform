@@ -1,3 +1,7 @@
+## 0.1.5
+
+- feat: optional `onDeleted` callback to show a clear button
+
 ## 0.1.4
 
 - fix: only trigger `onChanged` in `StringField` when the value actually changes

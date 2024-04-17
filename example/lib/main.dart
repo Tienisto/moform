@@ -74,6 +74,11 @@ class _HomePageState extends State<HomePage> {
                 email = value;
               });
             },
+            onDeleted: () {
+              setState(() {
+                email = '';
+              });
+            },
           ),
           StringField(
             value: email,
@@ -194,6 +199,11 @@ class _HomePageState extends State<HomePage> {
             onChanged: (value) {
               setState(() {
                 date = value;
+              });
+            },
+            onDeleted: () {
+              setState(() {
+                date = null;
               });
             },
           ),

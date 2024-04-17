@@ -28,6 +28,7 @@ class TimeField extends StatefulWidget {
   final Icon? icon;
   final Icon? prefixIcon;
   final Icon? suffixIcon;
+  final void Function()? onDeleted;
 
   final TextStyle? style;
   final TextFieldBuilder? builder;
@@ -47,6 +48,7 @@ class TimeField extends StatefulWidget {
     this.icon,
     this.prefixIcon,
     this.suffixIcon,
+    this.onDeleted,
     this.style,
     this.builder,
     this.enabled,
@@ -120,6 +122,7 @@ class _TimeFieldState extends State<TimeField> {
           readOnly: true,
           // ignore: invalid_use_of_internal_member
           decoration: buildInputDecoration(
+            context: context,
             decoration: widget.decoration,
             label: widget.label,
             hint: widget.hint,
@@ -128,6 +131,8 @@ class _TimeFieldState extends State<TimeField> {
             icon: widget.icon,
             prefixIcon: widget.prefixIcon,
             suffixIcon: widget.suffixIcon,
+            onDeleted: widget.onDeleted,
+            hasInput: _controller.text.isNotEmpty,
             keyboardType: null,
           ),
         ),
