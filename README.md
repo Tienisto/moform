@@ -1,5 +1,8 @@
 # Moform
 
+[![pub package](https://img.shields.io/pub/v/moform.svg)](https://pub.dev/packages/moform)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Reactive, model-driven, and type-safe forms for Flutter without the overhead of managing a TextEditingController.
 
 ## Getting Started
