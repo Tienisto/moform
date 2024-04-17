@@ -84,8 +84,16 @@ class DoubleField extends BaseNumberField<double> {
       builder: builder,
       enabled: enabled,
       readOnly: readOnly,
-      fallbackFormatter: (double d) => d.toString(),
-      fallbackParser: (String s) => double.tryParse(s.replaceAll(',', '.')),
+      fallbackFormatter: (BuildContext context, double d) {
+        final locale = Localizations.localeOf(context).toLanguageTag();
+        final sep = NumberFormat.decimalPattern(locale).symbols.DECIMAL_SEP;
+        return d.toString().replaceAll('.', sep);
+      },
+      fallbackParser: (BuildContext context, String s) {
+        final locale = Localizations.localeOf(context).toLanguageTag();
+        final sep = NumberFormat.decimalPattern(locale).symbols.DECIMAL_SEP;
+        return double.tryParse(s.replaceAll(sep, '.'));
+      },
       caster: (num? n) => n?.toDouble(),
       nullable: false,
     );

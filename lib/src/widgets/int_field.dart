@@ -84,8 +84,8 @@ class IntField extends BaseNumberField<int> {
       builder: builder,
       enabled: enabled,
       readOnly: readOnly,
-      fallbackFormatter: (int i) => i.toString(),
-      fallbackParser: (String s) => int.tryParse(s),
+      fallbackFormatter: (BuildContext context, int i) => i.toString(),
+      fallbackParser: (BuildContext context, String s) => int.tryParse(s),
       caster: (num? n) => n?.toInt(),
       nullable: false,
     );

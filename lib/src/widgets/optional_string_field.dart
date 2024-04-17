@@ -65,7 +65,10 @@ class _OptionalStringFieldState extends State<OptionalStringField> {
     super.initState();
     _controller.text = widget.value ?? '';
     _controller.addListener(() {
-      widget.onChanged(_controller.text.digestNullable());
+      final controllerValue = _controller.text.digestNullable();
+      if (controllerValue != widget.value) {
+        widget.onChanged(controllerValue);
+      }
     });
   }
 

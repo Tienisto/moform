@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:moform/moform.dart';
 
@@ -13,6 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      supportedLocales: const [
+        Locale('en', 'US'),
+        Locale('de', 'DE'),
+      ],
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      // locale: const Locale('de', 'DE'),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,

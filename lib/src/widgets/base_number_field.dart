@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:moform/src/text_field_builder.dart';
+import 'package:moform/src/utils/first_frame_callback.dart';
 import 'package:moform/src/utils/input_decoration_builder.dart';
 import 'package:moform/src/utils/number_format_ext.dart';
 import 'package:moform/src/utils/text_editing_controller_ext.dart';
@@ -12,6 +13,18 @@ typedef NumberFormatter<T> = String Function(T);
 
 @internal
 typedef NumberParser<T> = T? Function(String);
+
+@internal
+typedef NumberFormatterWithContext<T> = String Function(
+  BuildContext context,
+  T value,
+);
+
+@internal
+typedef NumberParserWithContext<T> = T? Function(
+  BuildContext context,
+  String value,
+);
 
 final _doubleFilteringInput =
     FilteringTextInputFormatter.allow(RegExp(r'[0-9,.]'));
@@ -54,8 +67,8 @@ class BaseNumberField<T> extends StatefulWidget {
   final bool? enabled;
   final bool readOnly;
 
-  final NumberFormatter<T> fallbackFormatter;
-  final NumberParser<T> fallbackParser;
+  final NumberFormatterWithContext<T> fallbackFormatter;
+  final NumberParserWithContext<T> fallbackParser;
   final T? Function(num?) caster;
   final bool nullable;
 
@@ -96,19 +109,13 @@ class BaseNumberField<T> extends StatefulWidget {
   State<BaseNumberField<T>> createState() => _BaseNumberFieldState();
 }
 
-class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> {
+class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> with FirstFrameCallback {
   final TextEditingController _controller = TextEditingController();
   String? _lastInput;
 
   @override
   void initState() {
     super.initState();
-    _controller.text = _numberToString<T>(
-      widget.numberFormat,
-      widget.formatter,
-      widget.fallbackFormatter,
-      widget.value,
-    );
     _controller.addListener(() {
       final newInput = _controller.text;
       if (newInput == _lastInput) {
@@ -117,7 +124,7 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> {
       _lastInput = newInput;
       final T? parsed = widget.parser?.call(newInput) ??
           widget.caster(widget.numberFormat?.parseOrNull(newInput)) ??
-          widget.fallbackParser(newInput);
+          widget.fallbackParser(context, newInput);
       if (parsed == widget.value) {
         return;
       }
@@ -138,6 +145,7 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> {
           return;
         }
         _controller.setTextAndFixCursor(_numberToString<T>(
+          context,
           widget.numberFormat,
           widget.formatter,
           widget.fallbackFormatter,
@@ -154,6 +162,7 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> {
   void didUpdateWidget(BaseNumberField<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     final newValue = _numberToString<T>(
+      context,
       widget.numberFormat,
       widget.formatter,
       widget.fallbackFormatter,
@@ -177,6 +186,16 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> {
 
   @override
   Widget build(BuildContext context) {
+    onFirstFrame(() {
+      _controller.text = _numberToString<T>(
+        context,
+        widget.numberFormat,
+        widget.formatter,
+        widget.fallbackFormatter,
+        widget.value,
+      );
+    });
+
     return switch (widget.builder) {
       TextFieldBuilder builder => builder(context, _controller),
       null => TextFormField(
@@ -207,7 +226,7 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> {
                   final T? parsed = widget.parser?.call(_controller.text) ??
                       widget.caster(
                           widget.numberFormat?.parse(_controller.text)) ??
-                      widget.fallbackParser(_controller.text);
+                      widget.fallbackParser(context, _controller.text);
                   if (parsed != null) {
                     widget.onSubmitted!(parsed);
                   }
@@ -232,9 +251,10 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>> {
 }
 
 String _numberToString<T>(
+  BuildContext context,
   NumberFormat? numberFormat,
   NumberFormatter<T>? formatter,
-  NumberFormatter<T> fallbackFormatter,
+  NumberFormatterWithContext<T> fallbackFormatter,
   T? value,
 ) {
   if (value == null) {
@@ -243,5 +263,5 @@ String _numberToString<T>(
 
   return formatter?.call(value) ??
       numberFormat?.format(value) ??
-      fallbackFormatter(value);
+      fallbackFormatter(context, value);
 }
