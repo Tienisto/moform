@@ -7,7 +7,13 @@ import 'package:moform/src/utils/first_frame_callback.dart';
 import 'package:moform/src/utils/input_decoration_builder.dart';
 import 'package:moform/src/utils/number_format_ext.dart';
 import 'package:moform/src/utils/text_editing_controller_ext.dart';
+import 'package:moform/src/widgets/double_field.dart';
+import 'package:moform/src/widgets/int_field.dart';
+import 'package:moform/src/widgets/optional_double_field.dart';
+import 'package:moform/src/widgets/optional_int_field.dart';
 
+/// Custom formatter and parser for [T].
+/// Used for [int] and [double] fields.
 class CustomNumberFormat<T> {
   /// Custom formatter for the integer / double value.
   final NumberFormatter<T> formatter;
@@ -44,8 +50,11 @@ typedef NumberParserWithContext<T> = T? Function(
 final _doubleFilteringInput =
     FilteringTextInputFormatter.allow(RegExp(r'[0-9,.]'));
 
+/// Superclass for [IntField], [DoubleField], [OptionalIntField], and
+/// [OptionalDoubleField].
 @internal
-class BaseNumberField<T> extends StatefulWidget {
+class BaseNumberField<T extends num?> extends StatefulWidget {
+  /// The current value of the field.
   final T? value;
 
   /// Custom formatter for the integer value.
@@ -55,9 +64,15 @@ class BaseNumberField<T> extends StatefulWidget {
   /// Providing this will ignore [numberFormat].
   final CustomNumberFormat<T>? customNumberFormat;
 
+  /// Called when the value changes.
   final void Function(T) onChanged;
+
+  /// Called when the user submits the value.
   final void Function(T)? onSubmitted;
   final FormFieldValidator<String>? validator;
+
+  /// The decoration of the text field.
+  /// Some fields are obsolete when this is provided.
   final InputDecoration? decoration;
 
   // alias for decoration
@@ -121,7 +136,7 @@ class BaseNumberField<T> extends StatefulWidget {
   State<BaseNumberField<T>> createState() => _BaseNumberFieldState();
 }
 
-class _BaseNumberFieldState<T> extends State<BaseNumberField<T>>
+class _BaseNumberFieldState<T extends num?> extends State<BaseNumberField<T>>
     with FirstFrameCallback {
   final TextEditingController _controller = TextEditingController();
   String? _lastInput;

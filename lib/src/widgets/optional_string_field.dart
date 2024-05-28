@@ -7,10 +7,18 @@ import 'package:moform/src/utils/text_editing_controller_ext.dart';
 /// A reactive text field representing a string value.
 /// If the value is blank, it will be treated as null.
 class OptionalStringField extends StatefulWidget {
+  /// The current value of the field.
   final String? value;
+
+  /// Called when the value changes.
   final void Function(String?) onChanged;
+
+  /// Called when the user submits the value.
   final void Function(String?)? onSubmitted;
   final FormFieldValidator<String>? validator;
+
+  /// The decoration of the text field.
+  /// Some fields are obsolete when this is provided.
   final InputDecoration? decoration;
 
   // alias for decoration
@@ -29,7 +37,11 @@ class OptionalStringField extends StatefulWidget {
   final TextAlign textAlign;
   final TextAlignVertical? textAlignVertical;
   final TextInputAction? textInputAction;
+
+  /// Custom builder for the text field.
+  /// Some fields are obsolete when using this builder.
   final TextFieldBuilder? builder;
+
   final bool? enabled;
   final bool readOnly;
 

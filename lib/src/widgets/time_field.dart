@@ -11,6 +11,7 @@ typedef DateTimeFormatter = String Function(
 
 /// A reactive text field representing a time value.
 class TimeField extends StatefulWidget {
+  /// The current time of the field.
   final TimeOfDay? value;
 
   /// The initial time that the time picker should display
@@ -20,8 +21,12 @@ class TimeField extends StatefulWidget {
   /// The format used to display the date and time.
   final DateFormat? dateFormat;
 
+  /// Called when the value changes.
   final void Function(TimeOfDay) onChanged;
   final FormFieldValidator<TimeOfDay?>? validator;
+
+  /// The decoration of the text field.
+  /// Some fields are obsolete when this is provided.
   final InputDecoration? decoration;
 
   // alias for decoration
@@ -38,7 +43,11 @@ class TimeField extends StatefulWidget {
   final StrutStyle? strutStyle;
   final TextAlign textAlign;
   final TextAlignVertical? textAlignVertical;
+
+  /// Custom builder for the text field.
+  /// Some fields are obsolete when using this builder.
   final TextFieldWithOnTapBuilder? builder;
+
   final bool? enabled;
 
   const TimeField({

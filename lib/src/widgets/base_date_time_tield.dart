@@ -3,15 +3,21 @@ import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:moform/src/text_field_builder.dart';
 import 'package:moform/src/utils/input_decoration_builder.dart';
+import 'package:moform/src/widgets/date_time_field.dart';
+import 'package:moform/src/widgets/time_field.dart';
 
+/// Formats [value] with [dateFormat] and returns the result.
+/// Uses [context] to localize the date and time.
 typedef DateTimeFormatter = String Function(
   BuildContext context,
   DateFormat? dateFormat,
   DateTime? value,
 );
 
+/// Superclass for [DateTimeField] and [TimeField].
 @internal
 class BaseDateTimeField extends StatefulWidget {
+  /// The current date and time of the field.
   final DateTime? value;
 
   /// The initial date that the calendar picker should display
@@ -19,15 +25,24 @@ class BaseDateTimeField extends StatefulWidget {
   /// If null, defaults to the current date and time.
   final DateTime? suggestedDate;
 
+  /// The earliest allowable date and time.
   final DateTime? firstDate;
+
+  /// The latest allowable date and time.
   final DateTime? lastDate;
 
   /// The format used to display the date and time.
   final DateFormat? dateFormat;
 
+  /// Called when the date and time changes.
   final void Function(DateTime) onChanged;
+
+  /// Called when the user wants to clear the date and time.
   final void Function()? onCleared;
   final FormFieldValidator<DateTime?>? validator;
+
+  /// The decoration of the text field.
+  /// Some fields are obsolete when this is provided.
   final InputDecoration? decoration;
 
   // alias for decoration
@@ -43,7 +58,11 @@ class BaseDateTimeField extends StatefulWidget {
   final StrutStyle? strutStyle;
   final TextAlign textAlign;
   final TextAlignVertical? textAlignVertical;
+
+  /// Custom builder for the text field.
+  /// Some fields are obsolete when using this builder.
   final TextFieldWithOnTapBuilder? builder;
+
   final bool? enabled;
 
   final bool includeTime;
