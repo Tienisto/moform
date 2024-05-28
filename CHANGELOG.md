@@ -1,3 +1,7 @@
+## 0.2.1
+
+- feat: add `strutStyle`, `textAlign`, and `textAlignVertical` parameters
+
 ## 0.2.0
 
 - feat: optional `onCleared` callback to show a clear button

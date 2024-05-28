@@ -23,6 +23,9 @@ class StringField extends StatefulWidget {
   final TextInputType? keyboardType;
 
   final TextStyle? style;
+  final StrutStyle? strutStyle;
+  final TextAlign textAlign;
+  final TextAlignVertical? textAlignVertical;
   final TextInputAction? textInputAction;
   final TextFieldBuilder? builder;
   final bool? enabled;
@@ -45,6 +48,9 @@ class StringField extends StatefulWidget {
     this.onCleared,
     this.keyboardType,
     this.style,
+    this.strutStyle,
+    this.textAlign = TextAlign.start,
+    this.textAlignVertical,
     this.textInputAction,
     this.builder,
     this.enabled,
@@ -95,6 +101,9 @@ class _StringFieldState extends State<StringField> {
           controller: _controller,
           validator: widget.validator,
           style: widget.style,
+          strutStyle: widget.strutStyle,
+          textAlign: widget.textAlign,
+          textAlignVertical: widget.textAlignVertical,
           enabled: widget.enabled,
           readOnly: widget.readOnly,
           textInputAction: widget.textInputAction ??

@@ -40,6 +40,9 @@ class BaseDateTimeField extends StatefulWidget {
   final Icon? suffixIcon;
 
   final TextStyle? style;
+  final StrutStyle? strutStyle;
+  final TextAlign textAlign;
+  final TextAlignVertical? textAlignVertical;
   final TextFieldWithOnTapBuilder? builder;
   final bool? enabled;
 
@@ -65,6 +68,9 @@ class BaseDateTimeField extends StatefulWidget {
     required this.prefixIcon,
     required this.suffixIcon,
     required this.style,
+    required this.strutStyle,
+    required this.textAlign,
+    required this.textAlignVertical,
     required this.builder,
     required this.enabled,
     required this.includeTime,
@@ -163,6 +169,9 @@ class _BaseDateTimeFieldState extends State<BaseDateTimeField> {
                   return widget.validator!(widget.value);
                 },
           style: widget.style,
+          strutStyle: widget.strutStyle,
+          textAlign: widget.textAlign,
+          textAlignVertical: widget.textAlignVertical,
           enabled: widget.enabled,
           readOnly: true,
           decoration: buildInputDecoration(

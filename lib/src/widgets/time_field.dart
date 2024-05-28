@@ -35,6 +35,9 @@ class TimeField extends StatefulWidget {
   final void Function()? onCleared;
 
   final TextStyle? style;
+  final StrutStyle? strutStyle;
+  final TextAlign textAlign;
+  final TextAlignVertical? textAlignVertical;
   final TextFieldWithOnTapBuilder? builder;
   final bool? enabled;
 
@@ -55,6 +58,9 @@ class TimeField extends StatefulWidget {
     this.suffixIcon,
     this.onCleared,
     this.style,
+    this.strutStyle,
+    this.textAlign = TextAlign.start,
+    this.textAlignVertical,
     this.builder,
     this.enabled,
   });
@@ -129,6 +135,9 @@ class _TimeFieldState extends State<TimeField> {
                   return widget.validator!(widget.value);
                 },
           style: widget.style,
+          strutStyle: widget.strutStyle,
+          textAlign: widget.textAlign,
+          textAlignVertical: widget.textAlignVertical,
           enabled: widget.enabled,
           readOnly: true,
           // ignore: invalid_use_of_internal_member

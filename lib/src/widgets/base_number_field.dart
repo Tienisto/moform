@@ -72,6 +72,9 @@ class BaseNumberField<T> extends StatefulWidget {
   final TextInputType? keyboardType;
 
   final TextStyle? style;
+  final StrutStyle? strutStyle;
+  final TextAlign textAlign;
+  final TextAlignVertical? textAlignVertical;
   final TextInputAction? textInputAction;
   final TextFieldBuilder? builder;
   final bool? enabled;
@@ -101,6 +104,9 @@ class BaseNumberField<T> extends StatefulWidget {
     required this.onCleared,
     required this.keyboardType,
     required this.style,
+    required this.strutStyle,
+    required this.textAlign,
+    required this.textAlignVertical,
     required this.textInputAction,
     required this.builder,
     required this.enabled,
@@ -221,6 +227,9 @@ class _BaseNumberFieldState<T> extends State<BaseNumberField<T>>
               _doubleFilteringInput,
           ],
           style: widget.style,
+          strutStyle: widget.strutStyle,
+          textAlign: widget.textAlign,
+          textAlignVertical: widget.textAlignVertical,
           enabled: widget.enabled,
           readOnly: widget.readOnly,
           textInputAction: widget.textInputAction ??
