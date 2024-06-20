@@ -1,3 +1,7 @@
+## 0.2.2
+
+- feat: add `obscureText` and `obscuringCharacter` parameters
+
 ## 0.2.1
 
 - feat: add `strutStyle`, `textAlign`, and `textAlignVertical` parameters

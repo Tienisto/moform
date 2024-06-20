@@ -38,6 +38,9 @@ class OptionalStringField extends StatefulWidget {
   final TextAlignVertical? textAlignVertical;
   final TextInputAction? textInputAction;
 
+  final String obscuringCharacter;
+  final bool obscureText;
+
   /// Custom builder for the text field.
   /// Some fields are obsolete when using this builder.
   final TextFieldBuilder? builder;
@@ -66,6 +69,8 @@ class OptionalStringField extends StatefulWidget {
     this.textAlign = TextAlign.start,
     this.textAlignVertical,
     this.textInputAction,
+    this.obscuringCharacter = '•',
+    this.obscureText = false,
     this.builder,
     this.enabled,
     this.readOnly = false,
@@ -126,6 +131,8 @@ class _OptionalStringFieldState extends State<OptionalStringField> {
                   ? TextInputAction.done
                   : TextInputAction.next),
           onFieldSubmitted: widget.onSubmitted,
+          obscuringCharacter: widget.obscuringCharacter,
+          obscureText: widget.obscureText,
           decoration: buildInputDecoration(
             context: context,
             decoration: widget.decoration,
