@@ -93,6 +93,7 @@ class BaseNumberField<T extends num?> extends StatefulWidget {
   final TextInputAction? textInputAction;
   final TextFieldBuilder? builder;
   final bool? enabled;
+  final bool autofocus;
   final bool readOnly;
 
   final NumberFormatterWithContext<T> fallbackFormatter;
@@ -125,6 +126,7 @@ class BaseNumberField<T extends num?> extends StatefulWidget {
     required this.textInputAction,
     required this.builder,
     required this.enabled,
+    required this.autofocus,
     required this.readOnly,
     required this.fallbackFormatter,
     required this.fallbackParser,
@@ -246,6 +248,7 @@ class _BaseNumberFieldState<T extends num?> extends State<BaseNumberField<T>>
           textAlign: widget.textAlign,
           textAlignVertical: widget.textAlignVertical,
           enabled: widget.enabled,
+          autofocus: widget.autofocus,
           readOnly: widget.readOnly,
           textInputAction: widget.textInputAction ??
               (widget.onSubmitted == null

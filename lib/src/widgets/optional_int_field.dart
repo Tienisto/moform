@@ -31,6 +31,7 @@ class OptionalIntField extends BaseNumberField<int?> {
     required super.textInputAction,
     required super.builder,
     required super.enabled,
+    required super.autofocus,
     required super.readOnly,
     required super.fallbackFormatter,
     required super.fallbackParser,
@@ -63,6 +64,7 @@ class OptionalIntField extends BaseNumberField<int?> {
     TextInputAction? textInputAction,
     TextFieldBuilder? builder,
     bool? enabled,
+    bool autofocus = false,
     bool readOnly = false,
   }) {
     return OptionalIntField._(
@@ -90,6 +92,7 @@ class OptionalIntField extends BaseNumberField<int?> {
       textInputAction: textInputAction,
       builder: builder,
       enabled: enabled,
+      autofocus: autofocus,
       readOnly: readOnly,
       fallbackFormatter: (BuildContext context, int? i) => i?.toString() ?? '',
       fallbackParser: (BuildContext context, String s) => int.tryParse(s),

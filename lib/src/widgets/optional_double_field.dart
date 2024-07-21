@@ -31,6 +31,7 @@ class OptionalDoubleField extends BaseNumberField<double?> {
     required super.textInputAction,
     required super.builder,
     required super.enabled,
+    required super.autofocus,
     required super.readOnly,
     required super.fallbackFormatter,
     required super.fallbackParser,
@@ -63,6 +64,7 @@ class OptionalDoubleField extends BaseNumberField<double?> {
     TextInputAction? textInputAction,
     TextFieldBuilder? builder,
     bool? enabled,
+    bool autofocus = false,
     bool readOnly = false,
   }) {
     return OptionalDoubleField._(
@@ -90,6 +92,7 @@ class OptionalDoubleField extends BaseNumberField<double?> {
       textInputAction: textInputAction,
       builder: builder,
       enabled: enabled,
+      autofocus: autofocus,
       readOnly: readOnly,
       fallbackFormatter: (BuildContext context, double? d) {
         if (d == null) {

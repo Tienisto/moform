@@ -29,6 +29,7 @@ class IntField extends BaseNumberField<int> {
     required super.textAlignVertical,
     required super.textInputAction,
     required super.builder,
+    required super.autofocus,
     required super.enabled,
     required super.readOnly,
     required super.fallbackFormatter,
@@ -62,6 +63,7 @@ class IntField extends BaseNumberField<int> {
     TextInputAction? textInputAction,
     TextFieldBuilder? builder,
     bool? enabled,
+    bool autofocus = false,
     bool readOnly = false,
   }) {
     return IntField._(
@@ -89,6 +91,7 @@ class IntField extends BaseNumberField<int> {
       textInputAction: textInputAction,
       builder: builder,
       enabled: enabled,
+      autofocus: autofocus,
       readOnly: readOnly,
       fallbackFormatter: (BuildContext context, int i) => i.toString(),
       fallbackParser: (BuildContext context, String s) => int.tryParse(s),

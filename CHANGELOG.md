@@ -1,3 +1,7 @@
+## 0.2.3
+
+- feat: add `autofocus` parameter
+
 ## 0.2.2
 
 - feat: add `obscureText` and `obscuringCharacter` parameters

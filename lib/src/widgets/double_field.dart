@@ -30,6 +30,7 @@ class DoubleField extends BaseNumberField<double> {
     required super.textInputAction,
     required super.builder,
     required super.enabled,
+    required super.autofocus,
     required super.readOnly,
     required super.fallbackFormatter,
     required super.fallbackParser,
@@ -63,6 +64,7 @@ class DoubleField extends BaseNumberField<double> {
     TextInputAction? textInputAction,
     TextFieldBuilder? builder,
     bool? enabled,
+    bool autofocus = false,
     bool readOnly = false,
   }) {
     return DoubleField._(
@@ -90,6 +92,7 @@ class DoubleField extends BaseNumberField<double> {
       textInputAction: textInputAction,
       builder: builder,
       enabled: enabled,
+      autofocus: autofocus,
       readOnly: readOnly,
       fallbackFormatter: (BuildContext context, double d) {
         final locale = Localizations.localeOf(context).toLanguageTag();

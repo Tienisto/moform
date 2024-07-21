@@ -44,6 +44,7 @@ class StringField extends StatefulWidget {
   final TextFieldBuilder? builder;
 
   final bool? enabled;
+  final bool autofocus;
   final bool readOnly;
 
   const StringField({
@@ -71,6 +72,7 @@ class StringField extends StatefulWidget {
     this.obscureText = false,
     this.builder,
     this.enabled,
+    this.autofocus = false,
     this.readOnly = false,
   });
 
@@ -122,6 +124,7 @@ class _StringFieldState extends State<StringField> {
           textAlign: widget.textAlign,
           textAlignVertical: widget.textAlignVertical,
           enabled: widget.enabled,
+          autofocus: widget.autofocus,
           readOnly: widget.readOnly,
           textInputAction: widget.textInputAction ??
               (widget.onSubmitted == null
