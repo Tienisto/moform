@@ -135,7 +135,7 @@ class BaseNumberField<T extends num?> extends StatefulWidget {
   });
 
   @override
-  State<BaseNumberField<T>> createState() => _BaseNumberFieldState();
+  State<BaseNumberField<T>> createState() => _BaseNumberFieldState<T>();
 }
 
 class _BaseNumberFieldState<T extends num?> extends State<BaseNumberField<T>>
