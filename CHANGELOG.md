@@ -1,3 +1,8 @@
+## 0.2.4
+
+- fix: do not add decimal separator if `decimalDigits` is `0` during user input
+- fix: add missing generic type for `BaseNumberField`
+
 ## 0.2.3
 
 - feat: add `autofocus` parameter
