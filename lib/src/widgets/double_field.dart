@@ -95,6 +95,11 @@ class DoubleField extends BaseNumberField<double> {
       autofocus: autofocus,
       readOnly: readOnly,
       fallbackFormatter: (BuildContext context, double d) {
+        final i = d.toInt();
+        if (d == i) {
+          return i.toString();
+        }
+
         final locale = Localizations.localeOf(context).toLanguageTag();
         final sep = NumberFormat.decimalPattern(locale).symbols.DECIMAL_SEP;
         return d.toString().replaceAll('.', sep);
