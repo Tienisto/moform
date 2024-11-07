@@ -192,6 +192,7 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           OptionalDoubleField(
+            label: 'Optional Weight',
             value: weight,
             onChanged: (value) {
               setState(() {
