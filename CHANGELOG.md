@@ -1,3 +1,8 @@
+## 0.2.5
+
+- test: add tests for `StringField`, setup CI
+- docs: update README
+
 ## 0.2.4
 
 - fix: do not add decimal separator if `decimalDigits` is `0` during user input
