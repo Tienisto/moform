@@ -1,9 +1,22 @@
 # Moform
 
 [![pub package](https://img.shields.io/pub/v/moform.svg)](https://pub.dev/packages/moform)
+![ci](https://github.com/Tienisto/moform/actions/workflows/ci.yml/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Reactive, model-driven, and type-safe forms for Flutter without the overhead of managing a TextEditingController.
+
+## Motivation
+
+Similar to `Switch` and `Checkbox`, changing the `value` of a text field *should* automatically update the UI.
+However, this requires a `TextEditingController` and a `TextFormField` to manage the state of the field.
+
+Moform aims to be a very slim abstraction layer on top of `TextFormField`
+with 3 distinct features:
+
+- ✅ Reactive: Automatically update the UI when `value` changes.
+- ✅ Type-safe: Different fields for different types (String, int, double, DateTime).
+- ✅ Slim: Widgets look and behave like `TextFormField` with minimal overhead.
 
 ## Getting Started
 
