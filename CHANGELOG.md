@@ -1,3 +1,7 @@
+## 0.2.6
+
+- chore: update pubspec tags
+
 ## 0.2.5
 
 - test: add tests for `StringField`, setup CI
