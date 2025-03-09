@@ -32,6 +32,9 @@ class StringField extends StatefulWidget {
 
   final TextStyle? style;
   final StrutStyle? strutStyle;
+  final int? maxLines;
+  final int? minLines;
+  final bool expands;
   final TextAlign textAlign;
   final TextAlignVertical? textAlignVertical;
   final TextInputAction? textInputAction;
@@ -65,6 +68,9 @@ class StringField extends StatefulWidget {
     this.keyboardType,
     this.style,
     this.strutStyle,
+    this.maxLines = 1,
+    this.minLines,
+    this.expands = false,
     this.textAlign = TextAlign.start,
     this.textAlignVertical,
     this.textInputAction,
@@ -121,6 +127,9 @@ class _StringFieldState extends State<StringField> {
           validator: widget.validator,
           style: widget.style,
           strutStyle: widget.strutStyle,
+          maxLines: widget.maxLines,
+          minLines: widget.minLines,
+          expands: widget.expands,
           textAlign: widget.textAlign,
           textAlignVertical: widget.textAlignVertical,
           enabled: widget.enabled,

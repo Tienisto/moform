@@ -1,3 +1,7 @@
+## 0.2.7
+
+- feat: add `maxLines`, `minLines`, and `expands` parameters to `StringField`
+
 ## 0.2.6
 
 - chore: update pubspec tags
