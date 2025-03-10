@@ -34,9 +34,9 @@ class TimeField extends StatefulWidget {
   final String? hint;
   final String? prefixText;
   final String? suffixText;
-  final Icon? icon;
-  final Icon? prefixIcon;
-  final Icon? suffixIcon;
+  final Widget? icon;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final void Function()? onCleared;
 
   final TextStyle? style;

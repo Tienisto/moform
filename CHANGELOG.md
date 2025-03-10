@@ -1,3 +1,7 @@
+## 0.2.9
+
+- feat: change `Icon icon` to `Widget icon` for more flexibility
+
 ## 0.2.8
 
 - feat: add `onTap`
