@@ -69,6 +69,10 @@ class BaseNumberField<T extends num?> extends StatefulWidget {
 
   /// Called when the user submits the value.
   final void Function(T)? onSubmitted;
+
+  /// Called when the user taps the field.
+  final void Function()? onTap;
+
   final FormFieldValidator<String>? validator;
 
   /// The decoration of the text field.
@@ -108,6 +112,7 @@ class BaseNumberField<T extends num?> extends StatefulWidget {
     required this.customNumberFormat,
     required this.onChanged,
     required this.onSubmitted,
+    required this.onTap,
     required this.validator,
     required this.decoration,
     required this.label,
@@ -266,6 +271,7 @@ class _BaseNumberFieldState<T extends num?> extends State<BaseNumberField<T>>
                     widget.onSubmitted!(parsed);
                   }
                 },
+          onTap: widget.onTap,
           decoration: buildInputDecoration(
             context: context,
             decoration: widget.decoration,

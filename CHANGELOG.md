@@ -1,3 +1,7 @@
+## 0.2.8
+
+- feat: add `onTap`
+
 ## 0.2.7
 
 - feat: add `maxLines`, `minLines`, and `expands` parameters to `StringField`

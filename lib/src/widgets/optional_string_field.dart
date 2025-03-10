@@ -15,6 +15,10 @@ class OptionalStringField extends StatefulWidget {
 
   /// Called when the user submits the value.
   final void Function(String?)? onSubmitted;
+
+  /// Called when the user taps the field.
+  final void Function()? onTap;
+
   final FormFieldValidator<String>? validator;
 
   /// The decoration of the text field.
@@ -54,6 +58,7 @@ class OptionalStringField extends StatefulWidget {
     required this.value,
     required this.onChanged,
     this.onSubmitted,
+    this.onTap,
     this.validator,
     this.decoration,
     this.label,
@@ -134,6 +139,7 @@ class _OptionalStringFieldState extends State<OptionalStringField> {
                   ? TextInputAction.done
                   : TextInputAction.next),
           onFieldSubmitted: widget.onSubmitted,
+          onTap: widget.onTap,
           obscuringCharacter: widget.obscuringCharacter,
           obscureText: widget.obscureText,
           decoration: buildInputDecoration(
