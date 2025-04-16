@@ -1,6 +1,7 @@
 ## 0.2.9
 
 - feat: change `Icon icon` to `Widget icon` for more flexibility
+- fix: correct initial visibility of `onCleared` for `DateField` and `TimeField`
 
 ## 0.2.8
 
