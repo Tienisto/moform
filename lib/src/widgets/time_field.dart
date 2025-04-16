@@ -161,7 +161,7 @@ class _TimeFieldState extends State<TimeField> {
             prefixIcon: widget.prefixIcon,
             suffixIcon: widget.suffixIcon,
             onCleared: widget.onCleared,
-            hasInput: _controller.text.isNotEmpty,
+            hasInput: _controller.text.isNotEmpty || widget.value != null,
             keyboardType: null,
           ),
         ),
